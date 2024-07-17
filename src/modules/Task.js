@@ -20,6 +20,10 @@ export const Task = sequelize.define('tasks',{
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
+    deadline: {
+        type: DataTypes.DATE,
+        allowNull: true
+    }
     },{
         timestamps: true
 })

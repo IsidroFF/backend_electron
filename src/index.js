@@ -6,7 +6,7 @@ const port = process.env.PORT || 4000;
 
 async function main(){
     try {
-        await sequelize.sync({force: false});
+        await sequelize.sync({force: true});
         app.listen(port);
         console.log('Servidor en el puerto ',port);
     } catch (error){
