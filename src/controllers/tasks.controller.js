@@ -1,12 +1,12 @@
 import { Task } from "../modules/Task.js";
 
 // TODO: Corregir los posibles errores de los controladores
-export async function createTask(){
+export async function createTask(req, res){
     try {
-        const {name, content, done, deadline} = req.body;
+        const {name, content, done, deadline, UserId} = req.body;
 
         const newTask =  Task.create({
-            name, content, done, deadline
+            name, content, done, deadline, UserId
         });
 
         return res.status(201).json(newTask);
@@ -24,7 +24,7 @@ export async function getTasks(req, res){
             order: [["id","DESC"]],
         });
 
-        return res.staus(200).json(task);
+        return res.status(200).json(task);
     } catch (error) {
         return res.status(500).json({
             message: error.message
@@ -33,7 +33,7 @@ export async function getTasks(req, res){
 }
 
 export async function updateTask(req, res){
-    const { id } = res.params;
+    const { id } = req.params;
 
     try {
         const task = await Task.findOne({

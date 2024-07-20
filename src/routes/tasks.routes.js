@@ -4,11 +4,10 @@ import { Router } from "express";
 const router =  Router();
 
 // TODO: Probar las rutas localhost:3000/
-
-router.get("/:id", getTask);
-router.get("/", getTasks);
-router.put("/:id", updateTask);
-router.delete("/:id", deleteTask);
-router.post("/", createTask);
+router.get("/task/:id", getTask);
+router.get("/task", getTasks);
+router.put("/task/:id", updateTask);
+router.delete("/task/:id", deleteTask);
+router.post("/task", createTask);
 
 export default router;

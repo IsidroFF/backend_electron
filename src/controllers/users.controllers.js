@@ -1,20 +1,50 @@
 import { User } from "../modules/User.js";
 import { Task } from "../modules/Task.js";
+import jsonwebtoken from "jsonwebtoken";
 
+export const loginUser = async (req, res) => {
+  const {name, password} = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        name,
+        password
+      }
+    })
+    
+    if(!user) return res.status(404).json({ message: "User don't found or doesn't exists"})
+    
+    const token = jsonwebtoken.sign(
+      {userID: user.id, email: user.correo},
+      TOKEN_KEY,
+      {expiresIn: "2h"}
+    );
+
+    let nDatos = {...user, token};
+
+    return res.status(200).json(nDatos);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+// Controladores del CRUD
 export const getUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes:['id','name','password','correo']
+      attributes: ['id', 'name', 'password', 'correo']
     });
-    return res.json(users);
+
+    return res.status(200).json(users);
+
   } catch (error) {
-    return res.ststus(500).json({message: error.message});
+    return res.status(500).json({ message: error.message });
   }
 }
 
 export const createUser = async (req, res) => {
   try {
-    const {name, password, admin, correo} = req.body;
+    const { name, password, admin, correo } = req.body;
 
     const newUser = await User.create({
       name,
@@ -22,33 +52,33 @@ export const createUser = async (req, res) => {
       admin,
       correo
     });
-    
+
     return res.status(201).json(newUser);
   } catch (error) {
-    return res.status(500).json({message: error.message});
+    return res.status(500).json({ message: error.message });
   }
 }
 
 export const getUser = async (req, res) => {
-const {id} = req.params;
-try {
-  const user = await User.findOne({
-    where: {
-      id,
-    }
-  });
-  res.json(user);
-} catch (error  ) {
-  res.status(500).json({
-    message: error.message  
-  }); 
+  const { id } = req.params;
+  try {
+    const user = await User.findOne({
+      where: {
+        id,
+      }
+    });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
 }
-} 
 
 export const putUser = async (req, res) => {
   try {
-    const {id} = req.params;
-    const {name, correo, password} = req.body;
+    const { id } = req.params;
+    const { name, correo, password } = req.body;
 
     const user = await User.findByPk(id);
     user.name = name || user.name;
@@ -67,8 +97,8 @@ export const putUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const {id} = req.params;
-   
+    const { id } = req.params;
+
     // Delete task from user
     await Task.destroy({
       where: {
@@ -83,6 +113,6 @@ export const deleteUser = async (req, res) => {
     });
     return res.status(204);
   } catch (error) {
-    return res.status(500).json({ message: error.message})
+    return res.status(500).json({ message: error.message })
   }
 }

@@ -1,0 +1,41 @@
+{
+  "dataValues":{
+    "id":"ac460fd7-ed87-4fd3-b207-9b90af2c6a66",
+    "name":"Pancho Edited xd",
+    "password":"ElLopez2121",
+    "admin":true,
+    "correo":"Pancho@correoCorreo.net",
+    "createdAt":"2024-07-18T20:07:03.575Z",
+    "updatedAt":"2024-07-18T20:07:03.575Z"
+  },
+  "_previousDataValues":{
+    "id":"ac460fd7-ed87-4fd3-b207-9b90af2c6a66",
+    "name":"Pancho Edited xd",
+    "password":"ElLopez2121",
+    "admin":true,
+    "correo":"Pancho@correoCorreo.net",
+    "createdAt":"2024-07-18T20:07:03.575Z",
+    "updatedAt":"2024-07-18T20:07:03.575Z"
+  },
+  "uniqno":1,
+  "_changed":{
+
+  },
+  "_options":{
+    "isNewRecord":false,
+    "_schema":null,
+    "_schemaDelimiter":"",
+    "raw":true,
+    "attributes":[
+      "id",
+      "name",
+      "password",
+      "admin",
+      "correo",
+      "createdAt",
+      "updatedAt"
+    ]
+  },
+  "isNewRecord":false,
+  "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJhYzQ2MGZkNy1lZDg3LTRmZDMtYjIwNy05YjkwYWYyYzZhNjYiLCJlbWFpbCI6IlBhbmNob0Bjb3JyZW9Db3JyZW8ubmV0IiwiaWF0IjoxNzIxNDU1NDMxLCJleHAiOjE3MjE0NjI2MzF9.lHeX8Ict5Bxk6y1jn7nAEqUOXWev8JDELtQhidaFjrU"
+}
