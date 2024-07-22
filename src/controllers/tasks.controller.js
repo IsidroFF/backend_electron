@@ -1,4 +1,8 @@
 import { Task } from "../modules/Task.js";
+import jsonwebtoken from 'jsonwebtoken';
+import 'dotenv/config';
+
+const TOKEN_KEY = process.env.TOKEN_KEY;
 
 // TODO: Corregir los posibles errores de los controladores
 export async function createTask(req, res){
@@ -18,9 +22,17 @@ export async function createTask(req, res){
 }
 
 export async function getTasks(req, res){
+    // Get token from headers
+    const token = req.headers['authorization'].split(' ').pop();
+    // Get user data from token
+    const tokenData =  jsonwebtoken.verify(token, TOKEN_KEY);
+
     try {
         const task =  await Task.findAll({
-            attributes:["id","name","content","done","deadline"],
+            where: {
+                UserId: tokenData.id
+            },
+            attributes:["id","name","content","done","deadline", "UserId"],
             order: [["id","DESC"]],
         });
 
@@ -76,7 +88,7 @@ export async function getTask(req, res){
     try {
         const task = await Task.findOne({
             where: { id },
-            attributes: ["id","name","content","done","deadline"]
+            attributes: ["id","name","content","done","deadline", "UserId"]
         });
 
         return res.status(200).json(task);

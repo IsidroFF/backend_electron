@@ -1,33 +1,6 @@
 import { User } from "../modules/User.js";
 import { Task } from "../modules/Task.js";
-import jsonwebtoken from "jsonwebtoken";
 
-export const loginUser = async (req, res) => {
-  const {name, password} = req.body;
-
-  try {
-    const user = await User.findOne({
-      where: {
-        name,
-        password
-      }
-    })
-    
-    if(!user) return res.status(404).json({ message: "User don't found or doesn't exists"})
-    
-    const token = jsonwebtoken.sign(
-      {userID: user.id, email: user.correo},
-      TOKEN_KEY,
-      {expiresIn: "2h"}
-    );
-
-    let nDatos = {...user, token};
-
-    return res.status(200).json(nDatos);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-}
 // Controladores del CRUD
 export const getUsers = async (req, res) => {
   try {

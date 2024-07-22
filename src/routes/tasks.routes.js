@@ -1,13 +1,14 @@
 import { getTask, getTasks, updateTask, deleteTask, createTask } from "../controllers/tasks.controller.js";
 import { Router } from "express";
+import { verifyToken } from "../middlewares/login.middlewares.js";
 
 const router =  Router();
 
 // TODO: Probar las rutas localhost:3000/
-router.get("/task/:id", getTask);
-router.get("/task", getTasks);
-router.put("/task/:id", updateTask);
-router.delete("/task/:id", deleteTask);
-router.post("/task", createTask);
+router.get("/:id", verifyToken, getTask);
+router.get("/",verifyToken, getTasks);
+router.put("/:id",verifyToken, updateTask);
+router.delete("/:id",verifyToken, deleteTask);
+router.post("/",verifyToken, createTask);
 
 export default router;
