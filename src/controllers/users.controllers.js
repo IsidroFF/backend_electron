@@ -15,23 +15,6 @@ export const getUsers = async (req, res) => {
   }
 }
 
-export const createUser = async (req, res) => {
-  try {
-    const { name, password, admin, correo } = req.body;
-
-    const newUser = await User.create({
-      name,
-      password,
-      admin,
-      correo
-    });
-
-    return res.status(201).json(newUser);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-}
-
 export const getUser = async (req, res) => {
   const { id } = req.params;
   try {

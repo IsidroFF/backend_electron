@@ -1,13 +1,12 @@
 import 'dotenv/config'
 import jsonwebtoken from "jsonwebtoken";
-import { User } from "../modules/User.js";
 
 // Controlador del login
 const TOKEN_KEY = process.env.TOKEN_KEY;
 
 export const verifyToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  // Get cookie token 
+  const token = req.cookies.jwt
 
   if (!token) return res.status(401).send("Token requerido");
 
@@ -17,15 +16,15 @@ export const verifyToken = (req, res, next) => {
   });
 }
 
-export const userRolAuth = async (req, res, next) =>{
+export const userRolAuth = async (req, res, next) => {
   try {
-    // Get token from headers
-    const token = req.headers['authorization'].split(' ').pop();
+    // Get cookie token
+    const token = req.cookes.jwt;
     // Get user data from token
-    const tokenData =  jsonwebtoken.verify(token, TOKEN_KEY);
+    const tokenData = jsonwebtoken.verify(token, TOKEN_KEY);
 
     // Verify if user is a admin
-    if(!tokenData.admin) return res.status(409).json({ message: "You do not have permission"})
+    if (!tokenData.admin) return res.status(409).json({ message: "You do not have permission" })
 
     next();
   } catch (error) {
