@@ -23,7 +23,7 @@ export async function createTask(req, res){
 
 export async function getTasks(req, res){
     // Get token from headers
-    const token = req.headers['authorization'].split(' ').pop();
+    const token = req.cookies.jwt;
     // Get user data from token
     const tokenData =  jsonwebtoken.verify(token, TOKEN_KEY);
 

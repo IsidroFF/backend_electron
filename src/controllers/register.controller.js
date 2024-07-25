@@ -1,12 +1,14 @@
+import { encryptPassword } from "../middlewares/crypt.middleware.js";
 import { User } from "../modules/User.js";
 
 export const registerUser = async (req, res) => {
     try {
         const { name, password, admin, correo } = req.body;
 
+        const secretPassword = await encryptPassword(password);
         const newUser = await User.create({
             name,
-            password,
+            password: secretPassword,
             admin,
             correo
         });

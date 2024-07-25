@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getUsers, getUser, putUser, deleteUser } from "../controllers/users.controllers.js";
-import { userRolAuth, verifyToken } from "../middlewares/auth.middlewares.js";
+import { userRolAuth, verifyToken } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 router.get('/', verifyToken, userRolAuth, getUsers);
