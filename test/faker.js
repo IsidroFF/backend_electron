@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 // TODO: Crear el script para las pruebas de los datos
 
-const TestUserId = "8aa8a68c-ef07-47bc-b89d-10795ccb978c"
+const TestUserId = "c06811a5-fc74-4955-bfdd-636c3c55b137"
 
 // const userRandomName = faker.person.firstName();
 // const userRandomMail = faker.internet.email();
@@ -53,7 +53,7 @@ async function createUsers() {
 }
 
 async function createTask() {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 25; i++) {
         const randomName = faker.lorem.word(); // Rowan Nikolaus
         const randomContent = faker.lorem.words();
         const randomDone = faker.datatype.boolean();
