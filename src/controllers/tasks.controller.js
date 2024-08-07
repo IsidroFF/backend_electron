@@ -5,7 +5,7 @@ import 'dotenv/config';
 const TOKEN_KEY = process.env.TOKEN_KEY;
 
 // TODO: Corregir los posibles errores de los controladores
-export async function createTask(req, res){
+export const createTask = async (req, res) => {
     try {
         const {name, content, done, deadline, UserId} = req.body;
 
@@ -21,7 +21,7 @@ export async function createTask(req, res){
     }
 }
 
-export async function getTasks(req, res){
+export const getTasks = async (req, res) => {
     // Get token from headers
     const token = req.cookies.jwt;
     // Get user data from token
@@ -44,7 +44,7 @@ export async function getTasks(req, res){
     }
 }
 
-export async function updateTask(req, res){
+export const updateTask = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -65,7 +65,7 @@ export async function updateTask(req, res){
     }
 }
 
-export async function deleteTask(req, res){
+export const deleteTask = async (req, res) => {
     const { id } = req.params;
     try {
         await Task.destroy({
@@ -82,7 +82,7 @@ export async function deleteTask(req, res){
     }
 }
 
-export async function getTask(req, res){
+export const getTask = async (req, res) => {
     const { id } = req.params;
     
     try {
