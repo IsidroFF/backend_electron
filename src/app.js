@@ -1,7 +1,11 @@
 // Middlewares imports
+// Libreria con la logica para el backend
 import express from 'express';
+// Libreria para el manejo de cookies
 import cookieParser from 'cookie-parser';
+// Libreria para permisos y control de peticiones del servidor
 import cors from 'cors';
+// Acceso a las variables de entorno
 import 'dotenv/config'
 
 // Routers imports
@@ -10,7 +14,10 @@ import taskRouter from "./routes/tasks.routes.js";
 import loginRouter from './routes/login.routes.js';
 import registerRouter from './routes/register.routes.js';
 
+// Creamos la apliciacion de express
 const app = express();
+
+// URL desde donde seran enviadas las peticiones de nuestro front-end
 const FRONT_URI = process.env.FRONT_URI;
 
 // Configuración de CORS
@@ -21,8 +28,11 @@ const corsOptions = {
   allowedHeaders: 'Content-Type'
 };
 
+// Permitir JSON en las peticiones
 app.use(express.json());
+// Manejo de cookies
 app.use(cookieParser());
+// Le agregamos la configuracion del cors
 app.use(cors(corsOptions));
 
 // Ruta para comprobar las cookies (publicas?) del navegador
@@ -37,10 +47,11 @@ app.get('/cookie', function (req, res) {
   });
 });
 
-// Users routes controllers
-app.use('/api/v1/users', usersRouter);
-app.use('/api/v1/tasks', taskRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
+// Le asignamos una ruta y a su respectivo router
+app.use('/api/users', usersRouter);
+app.use('/api/tasks', taskRouter);
+app.use('/api/auth/login', loginRouter);
+app.use('/api/auth/register', registerRouter);
 
+// Exportamos la aplicacion de express creada
 export default app;

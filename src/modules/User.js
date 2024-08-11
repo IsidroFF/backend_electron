@@ -1,11 +1,12 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../database/database.js';
-import { Task } from './Task.js';
+import { DataTypes } from 'sequelize'; // Tipos de datos que maneja sequelize
+import { sequelize } from '../database/database.js'; // Instancia de sequelize para la coneccion con la base de datos
+import { Task } from './Task.js'; // Modelo de tareas
 
+// Modelo para los datos de los usuarios
 export const User = sequelize.define('users', {
     id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, // Auto-generate UUIDs
+        defaultValue: DataTypes.UUIDV4, // Generar UUID's automaticamente
         primaryKey: true,
         allowNull: false
     },
@@ -30,14 +31,17 @@ export const User = sequelize.define('users', {
         }
     }
 }, {
-    timestamps: true // Automatically adds createdAt and updatedAt
+    // Marcas de tiempo para creacion y ultima actualizacion
+    timestamps: true 
 });
 
+// Crear llave foranea para el id del usuario dentro de la tabla de tareas
 User.hasMany(Task, {
     foreignKey: 'UserId',
     sourceKey: 'id'
 })
 
+// Crear enlace de la llave foranea
 Task.belongsTo(User, {
     foreignKey: 'UserId',
     targetKey: 'id'
