@@ -32,7 +32,11 @@ export const loginUser = async (req, res) => {
     // Generamos el token que nos brindara acceso los datos de la aplicacion
     const token = jsonwebtoken.sign(
       // Guardamos en el token el ID y el rol del usuario
-      { id: user.id, admin: user.admin },
+      { 
+        id: user.id, 
+        name: user.name,
+        admin: user.admin 
+      },
       // Llave secreta para firmar los token's
       TOKEN_KEY,
       // Tiempo de vida de los token's generados
@@ -45,7 +49,7 @@ export const loginUser = async (req, res) => {
     res.cookie('jwt_ttimer', token)
 
     // Enviamos al usuario un acceso exitoso
-    return res.status(200);
+    return res.status(200).json({ message: 'OK' });
   } catch (error) {
     // Cualquier error se reporta como error interno del servidor y lo envia al usuario
     // (Espero que lo REPORTEN HDSPTM PINCHES USUAIROS PENDEJOS!!!)
