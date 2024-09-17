@@ -50,14 +50,14 @@ export const getTasks = async (req, res) => {
             // Solicitamos el id, nombre, contenido, estado, fecha de entrega e id del usuario de cada tarea
             attributes:["id","name","content","done","deadline", "UserId"],
             // Las ordemos por el id unico de cada tarea
-            order: [["id","DESC"]],
+            order: [["deadline","DESC"]],
         });
 
         // Error en caso de que el usuario no tenga tareas agregadas
         if(!tasks) return res.status(404).json({ message: 'El usuario no tiene tareas agregadas'})
 
         // Regremos una busqueda exitosa y las encontradas como informacion adicional
-        return res.status(302).json(tasks);
+        return res.status(200).json(tasks);
 
     } catch (error) {
         // Error interno del servidor y su mensaje, en caso de ser necesario
@@ -134,7 +134,7 @@ export const getTask = async (req, res) => {
         });
 
         // Regremos una busqueda exitosa y la tarea como informacion adicional
-        return res.status(302).json(task);
+        return res.status(200).json(task);
     } catch (error) {
         // Error interno y mensaje en caso de ser necesario
         return res.status(500).json({

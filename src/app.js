@@ -13,6 +13,7 @@ import usersRouter from "./routes/users.routes.js";
 import taskRouter from "./routes/tasks.routes.js";
 import loginRouter from './routes/login.routes.js';
 import registerRouter from './routes/register.routes.js';
+import logoutRouter from './routes/logout.routes.js'
 
 // Creamos la apliciacion de express
 const app = express();
@@ -52,6 +53,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/auth/login', loginRouter);
 app.use('/api/auth/register', registerRouter);
+app.use('/api/logout', logoutRouter);
 
 // Exportamos la aplicacion de express creada
 export default app;
